@@ -8,9 +8,9 @@ class Graph {
         adjacencyList = new HashMap<>();
     }
 
-    public void addEdge(String source, String destination, int weight) {
-        adjacencyList.computeIfAbsent(source, k -> new ArrayList<>()).add(new Edge(destination, weight));
-        adjacencyList.computeIfAbsent(destination, k -> new ArrayList<>()).add(new Edge(source, weight));
+    public void addEdge(String source, String dest, int weight) {
+        adjacencyList.computeIfAbsent(source, k -> new ArrayList<>()).add(new Edge(dest, weight));
+        adjacencyList.computeIfAbsent(dest, k -> new ArrayList<>()).add(new Edge(source, weight));
     }
 
     public Map<String, Integer> dijkstra(String start) {
@@ -34,7 +34,7 @@ class Graph {
             String currentVertex = currentNode.vertex;
 
             for (Edge edge : adjacencyList.getOrDefault(currentVertex, new ArrayList<>())) {
-                String neighbor = edge.destination;
+                String neighbor = edge.dest;
                 int newDist = distances.get(currentVertex) + edge.weight;
 
                 if (newDist < distances.get(neighbor)) {
@@ -69,11 +69,11 @@ class Graph {
     }
 
     private static class Edge {
-        String destination;
+        String dest;
         int weight;
 
-        Edge(String destination, int weight) {
-            this.destination = destination;
+        Edge(String dest, int weight) {
+            this.dest = dest;
             this.weight = weight;
         }
     }
